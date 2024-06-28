@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  description: |
+    Random
+  version: "1.0.0"
+  title: Random API
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+paths:
+  /test:
+    get:
+      summary: Get random
+      description: gfngng
+      operationId: getRandom
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+        "400":
+          description: Invalid status value
