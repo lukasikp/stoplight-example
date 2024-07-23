@@ -21,6 +21,17 @@ crepitantis manu aera mors torum redeat, hasta dux nondum laesa; **Nisi**.
 
 ![3-illustrative.png](../assets/images/3-illustrative.png)
 
+<!--
+type: tab
+title: My First Tab
+-->
+The contents of tab 1.
+<!--
+type: tab
+title: My Second Tab
+-->
+The contents of tab 2.
+<!-- type: tab-end -->
 
 ## Oblitus nativum
 
@@ -42,6 +53,27 @@ insequitur tamen. Suos male poterat, est haec poterit interea; petit et, opus.
 
 *Me* quique coeunt populi stabat, ceu fata fulgentis, ipsum planxere an. Vivum
 vulnus, est iam est sit et pedum pallada est auxiliumque, adversi terrae.
+
+
+```json http
+{
+  "method": "get",
+  "url": "https://todos.stoplight.io/todos"
+}
+
+```
+
+
+```json json_schema
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    }
+  }
+}
+
 
 Capioque armos parente in quae **nondum sed forma** Hecate limina, hunc. Falsa
 aut sequentur quo lacus remoto horrent quodque post. Violentus Cytoriaco matris,
