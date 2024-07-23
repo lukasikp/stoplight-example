@@ -19,6 +19,9 @@ crepitantis manu aera mors torum redeat, hasta dux nondum laesa; **Nisi**.
 4. Procubuit atque revocare
 5. Silva quem nostras iam luce aequent adhuc
 
+![3-illustrative.png](../assets/images/3-illustrative.png)
+
+
 ## Oblitus nativum
 
 Cum *peregit miles*. Non aquas longoque adhuc. Levata abiit virtus! Vel visa
