@@ -1,0 +1,53 @@
+{
+  "collapseTableOfContents": false,
+  "items": [
+    {
+      "type": "item",
+      "title": "Test page",
+      "uri": "/docs/testpage.md"
+    },
+    {
+      "type": "divider",
+      "title": "how to"
+    },
+    {
+      "type": "item",
+      "title": "Install app",
+      "uri": "/docs/how to/install-app.md"
+    },
+    {
+      "type": "group",
+      "title": "publish",
+      "items": [
+        {
+          "type": "item",
+          "title": "Publish content",
+          "uri": "/docs/how to/publish/publish-content.md"
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "Random API",
+      "uri": "/reference/RandomApi.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Swagger Petstore",
+      "uri": "/reference/Petstore.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "Schemas"
+    },
+    {
+      "type": "item",
+      "title": "Order",
+      "uri": "/reference/schemas/Order.yaml"
+    }
+  ]
+}
