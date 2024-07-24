@@ -11,11 +11,6 @@
       "title": "how to"
     },
     {
-      "type": "item",
-      "title": "Install app",
-      "uri": "/docs/how to/install-app.md"
-    },
-    {
       "type": "group",
       "title": "publish",
       "items": [
