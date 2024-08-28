@@ -35,6 +35,11 @@
       "title": "Swagger Petstore",
       "uri": "/reference/Petstore.yaml"
     },
+        {
+      "type": "item",
+      "title": "Random Api",
+      "uri": "/reference/RandomApi.yaml"
+    },
     {
       "type": "divider",
       "title": "Schemas"
