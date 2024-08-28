@@ -27,8 +27,8 @@
     },
     {
       "type": "item",
-      "title": "Random API",
-      "uri": "/reference/RandomApi.yaml"
+      "title": "My Api",
+      "uri": "/reference/myApi.yaml"
     },
     {
       "type": "item",
