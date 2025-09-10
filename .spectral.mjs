@@ -1,2 +1,17 @@
-import ruleset from "https://stoplight.io/api/v1/projects/cHJqOjI1MTE3Ng/spectral.js?branch_slug=v2&token=7394582e-f6eb-4a3e-a968-73bebbee84a7";
-export default { extends: ruleset };
+export default { 
+  rules: {
+    "enum-values-upper-snake-case": {
+      description: "All enum values must be declared in UPPER snake_case",
+      message: "All enum values must be declared in UPPER snake_case",
+      formats: ["oas2", "oas3_0", "oas3_1", "aas2", "aas3"],
+      severity: "error",
+      given: "$..enum[*]",
+      then: {
+        function: "casing",
+        functionOptions: {
+          type: "macro"
+        }
+      }
+    }
+  }
+};

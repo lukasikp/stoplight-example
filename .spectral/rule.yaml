@@ -1,0 +1,17 @@
+rules:
+  enum-values-upper-snake-case:
+    description: All enum values must be declared in UPPER snake_case
+    message: All enum values must be declared in UPPER snake_case
+    formats:
+      - oas2
+      - oas3_0
+      - oas3_1
+      - aas2
+      - aas3
+    severity: error
+    resolved: false
+    given: $.*..enum[*]
+    then:
+      function: casing
+      functionOptions:
+        type: macro
