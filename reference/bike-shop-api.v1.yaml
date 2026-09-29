@@ -84,6 +84,9 @@ paths:
                   batteryCapacityWh: 630
                   motorPowerW: 250
                   inStock: true
+                  warranty:
+                    kind: EXTENDED
+                    durationMonths: 36
               roadBike:
                 summary: Road bike - no battery fields allowed
                 value:

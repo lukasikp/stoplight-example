@@ -26,6 +26,8 @@ properties:
   inStock:
     type: boolean
     default: true
+  warranty:
+    $ref: '#/$defs/Warranty'
   batteryCapacityWh:
     type: integer
     minimum: 100
