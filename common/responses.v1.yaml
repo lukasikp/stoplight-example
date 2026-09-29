@@ -1,0 +1,65 @@
+title: Common Responses Library
+version: '1.0'
+
+parameters:
+  traceId:
+    name: X-Trace-Id
+    in: header
+    required: false
+    schema:
+      type: string
+      format: uuid
+    description: Correlation ID for tracing
+
+responses:
+  BadRequest:
+    description: Request validation failed
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+
+  Unauthorized:
+    description: Missing or invalid credentials
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+
+  NotFound:
+    description: Resource not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+
+  ServerError:
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+            traceId:
+              type: string
+
+headers:
+  RateLimit:
+    description: Requests per hour limit
+    schema:
+      type: integer
+    example: 100

@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: Bike Shop API
+  version: '1.0'
+  description: |
+    Bike shop API based on the advanced-api fixture structure.
+    The Bike model uses if/then/else conditional validation:
+    electric bikes must have batteryCapacityWh and motorPowerW,
+    other bike types must not carry those fields.
+  contact:
+    name: QA Team
+
+servers:
+  - url: https://{environment}.api.bikeshop.example.com/{basePath}
+    variables:
+      environment:
+        default: PROD
+        enum: [PROD, STAGING, DEV]
+      basePath:
+        default: v1
+
+tags:
+  - name: bikes
+
+paths:
+  /bikes:
+    parameters:
+      - $ref: '../common/responses.v1.yaml#/parameters/traceId'
+    get:
+      summary: List bikes
+      operationId: listBikes
+      tags: [bikes]
+      parameters:
+        - name: type
+          in: query
+          required: false
+          schema:
+            # ref into $defs of the model file
+            $ref: '../models/bike.v1.yaml#/$defs/BikeType'
+        - name: maxPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            exclusiveMinimum: 0
+        - name: onlyInStock
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of bikes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../models/bike.v1.yaml'
+        '400':
+          $ref: '../common/responses.v1.yaml#/responses/BadRequest'
+        '401':
+          $ref: '../common/responses.v1.yaml#/responses/Unauthorized'
+        '500':
+          $ref: '../common/responses.v1.yaml#/responses/ServerError'
+    post:
+      summary: Add a bike
+      operationId: createBike
+      tags: [bikes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../models/bike.v1.yaml'
+            examples:
+              electricBike:
+                summary: Electric bike - if/then requires battery and motor
+                value:
+                  name: E-MTB Pro
+                  type: ELECTRIC
+                  price: 4299
+                  batteryCapacityWh: 630
+                  motorPowerW: 250
+                  inStock: true
+              roadBike:
+                summary: Road bike - no battery fields allowed
+                value:
+                  name: Aero R1
+                  type: ROAD
+                  price: 1899
+                  gears: 22
+                  frameSize: M
+      responses:
+        '201':
+          description: Created
+          headers:
+            X-RateLimit-Limit:
+              $ref: '../common/responses.v1.yaml#/headers/RateLimit'
+          content:
+            application/json:
+              schema:
+                $ref: '../models/bike.v1.yaml'
+        '400':
+          $ref: '../common/responses.v1.yaml#/responses/BadRequest'
+
+  /bikes/{bikeId}:
+    parameters:
+      - name: bikeId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Get bike
+      operationId: getBike
+      tags: [bikes]
+      responses:
+        '200':
+          description: Single bike
+          content:
+            application/json:
+              schema:
+                $ref: '../models/bike.v1.yaml'
+        '404':
+          $ref: '../common/responses.v1.yaml#/responses/NotFound'
+    put:
+      summary: Update bike
+      operationId: updateBike
+      tags: [bikes]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../models/bike.v1.yaml'
+      responses:
+        '200':
+          description: Updated bike
+          content:
+            application/json:
+              schema:
+                $ref: '../models/bike.v1.yaml'
+        '400':
+          $ref: '../common/responses.v1.yaml#/responses/BadRequest'
+        '404':
+          $ref: '../common/responses.v1.yaml#/responses/NotFound'
+    delete:
+      summary: Remove bike
+      operationId: deleteBike
+      tags: [bikes]
+      responses:
+        '204':
+          description: Removed
+        '404':
+          $ref: '../common/responses.v1.yaml#/responses/NotFound'
+
+components:
+  schemas:
+    Error:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string

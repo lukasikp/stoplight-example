@@ -41,6 +41,11 @@
       "uri": "/reference/RandomApi.yaml"
     },
     {
+      "type": "item",
+      "title": "Bike Shop API",
+      "uri": "/reference/bike-shop-api.v1.yaml"
+    },
+    {
       "type": "divider",
       "title": "Schemas"
     },
@@ -48,6 +53,11 @@
       "type": "item",
       "title": "Order",
       "uri": "/reference/schemas/Order.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Bike",
+      "uri": "/models/bike.v1.yaml"
     }
   ]
 }

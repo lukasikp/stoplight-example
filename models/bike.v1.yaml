@@ -1,0 +1,78 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/schemas/bike.v1.yaml
+title: Bike
+type: object
+required:
+  - name
+  - type
+  - price
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+  type:
+    $ref: '#/$defs/BikeType'
+  price:
+    type: number
+    exclusiveMinimum: 0
+  gears:
+    type: integer
+    minimum: 1
+    maximum: 33
+  frameSize:
+    $ref: '#/$defs/FrameSize'
+  inStock:
+    type: boolean
+    default: true
+  batteryCapacityWh:
+    type: integer
+    minimum: 100
+  motorPowerW:
+    type: integer
+    minimum: 50
+    maximum: 750
+# electric bikes need battery + motor, other types must not have them
+if:
+  properties:
+    type:
+      const: ELECTRIC
+  required: [type]
+then:
+  required: [batteryCapacityWh, motorPowerW]
+else:
+  properties:
+    batteryCapacityWh:
+      not: {}
+    motorPowerW:
+      not: {}
+
+$defs:
+  BikeType:
+    type: string
+    enum: [ROAD, MOUNTAIN, GRAVEL, ELECTRIC, FOLDING, BMX]
+
+  FrameSize:
+    type: string
+    enum: [XS, S, M, L, XL]
+
+  # second if/then - extended warranty needs duration
+  Warranty:
+    type: object
+    required: [kind]
+    properties:
+      kind:
+        type: string
+        enum: [STANDARD, EXTENDED]
+      durationMonths:
+        type: integer
+        minimum: 1
+        maximum: 120
+    if:
+      properties:
+        kind:
+          const: EXTENDED
+      required: [kind]
+    then:
+      required: [durationMonths]
