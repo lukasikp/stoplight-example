@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/customer.json",
+  "title": "Customer",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "age": {
+      "type": "integer",
+      "exclusiveMinimum": 17,
+      "maximum": 120
+    },
+    "accountType": {
+      "enum": ["personal", "business"]
+    },
+    "companyName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "taxId": {
+      "type": "string"
+    },
+    "location": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "number", "minimum": -90, "maximum": 90 },
+        { "type": "number", "minimum": -180, "maximum": 180 }
+      ],
+      "items": false,
+      "minItems": 2
+    },
+    "addresses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/address" },
+      "contains": {
+        "type": "object",
+        "properties": { "primary": { "const": true } },
+        "required": ["primary"]
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "avatar": {
+      "type": "string",
+      "contentEncoding": "base64",
+      "contentMediaType": "image/png"
+    }
+  },
+  "required": ["id", "email", "accountType"],
+  "if": {
+    "properties": { "accountType": { "const": "business" } }
+  },
+  "then": {
+    "required": ["companyName", "taxId"]
+  },
+  "else": {
+    "not": { "required": ["companyName"] }
+  },
+  "dependentRequired": {
+    "taxId": ["companyName"]
+  },
+  "dependentSchemas": {
+    "location": {
+      "required": ["addresses"]
+    }
+  },
+  "unevaluatedProperties": false,
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "primary": { "type": "boolean", "default": false }
+      },
+      "required": ["street", "city", "country"]
+    }
+  }
+}
