@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://example.com/schemas/shipment.json",
+  "title": "Shipment",
+  "type": "object",
+  "properties": {
+    "trackingCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}[0-9]{9}[A-Z]{2}$"
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": true,
+      "maximum": 1000,
+      "exclusiveMaximum": false,
+      "multipleOf": 0.01
+    },
+    "destination": {
+      "$ref": "#/definitions/address"
+    },
+    "delivery": {
+      "oneOf": [
+        { "$ref": "#/definitions/courier" },
+        { "$ref": "#/definitions/pickupPoint" }
+      ]
+    },
+    "labels": {
+      "type": "object",
+      "patternProperties": {
+        "^x-[a-z]+$": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "insurance": {
+      "type": "number"
+    },
+    "insuranceCurrency": {
+      "type": "string",
+      "enum": ["USD", "EUR", "PLN"]
+    },
+    "note": {
+      "type": ["string", "null"],
+      "maxLength": 200
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true
+    }
+  },
+  "required": ["trackingCode", "weight", "destination"],
+  "dependencies": {
+    "insurance": ["insuranceCurrency"]
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "postalCode": { "type": "string" }
+      },
+      "required": ["street", "city"]
+    },
+    "courier": {
+      "type": "object",
+      "properties": {
+        "type": { "enum": ["courier"] },
+        "phone": { "type": "string" }
+      },
+      "required": ["type", "phone"]
+    },
+    "pickupPoint": {
+      "type": "object",
+      "properties": {
+        "type": { "enum": ["pickup"] },
+        "pointId": { "type": "string" }
+      },
+      "required": ["type", "pointId"]
+    }
+  }
+}
