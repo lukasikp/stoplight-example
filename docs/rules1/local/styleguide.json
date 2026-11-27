@@ -1,0 +1,52 @@
+{
+  "name": "ProjectNew",
+  "description": "",
+  "spectralExtends": [],
+  "extends": [],
+  "formats": [
+    "oas2",
+    "oas3",
+    "oas3.0",
+    "oas3.1"
+  ],
+  "aliases": {
+    "project": {
+      "id": "Pw-GzMW4vUFhXSSIETqi1",
+      "name": "project",
+      "targets": [
+        {
+          "formats": [
+            "oas2"
+          ],
+          "given": "$.path"
+        }
+      ]
+    }
+  },
+  "rules": {
+    "project": {
+      "id": "lxXgsVS0ecDJU4tuOS2bO",
+      "given": [
+        "#project"
+      ],
+      "severity": "error",
+      "then": {
+        "function": "alphabetical",
+        "functionOptions": {
+          "keyedBy": "name"
+        },
+        "field": "name"
+      },
+      "name": "project"
+    }
+  },
+  "x-embeddedFunctions": [
+    {
+      "id": "VLkO2kS5_SjSqXKP9gR7d",
+      "extendedFrom": "",
+      "name": "project",
+      "content": "import { createRulesetFunction } from '@stoplight/spectral-core';\n\nexport default createRulesetFunction(\n  {\n    input: null,\n    options: {\n      type: \"object\",\n      additionalProperties: false,\n\n      properties: {\n        exceptions: {\n          type: \"array\",\n\n          items: {\n            type: \"string\"\n          }\n        }\n      }\n    },\n  },\n  // https://github.com/stoplightio/spectral/blob/develop/docs/guides/5-custom-functions.md#writing-functions\n  function project(input, options, context) {},\n);"
+    }
+  ],
+  "extendedDefault": false
+}
